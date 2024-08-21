@@ -1,49 +1,73 @@
 ## Mohsen Pourdehghan
 
+import datetime
 import random
 
-randFish= random.randint(250, 800)
+
+
+randFish= random.randint(300, 1000)
 
 print('\n(You): Hello fisherman, how many fish did you catch?')
 
 print(f'\n(Fisherman): Not bad, just {randFish} pound. Do you wanna buy?')
 
+
 buy= input('\nSay somthing! ("yes" or "no"): ')
+
 
 while buy !='yes' and buy !='no':
     
     buy= input('\nJUST "yes" or "no": ')
 
 
+
+
 if buy =='yes':
 
     pound_to_kilo= round(randFish * 0.45,2)
     
-    print('\n(You): yes! i want to buy in kilograms.')
+    print('\n(You): yes!')
 
-    print(f'\n(Fisherman): It can be {pound_to_kilo} kilos. $2 per kilo, how many kilos do you want?')
+    print(f'\n(Fisherman): $5 per pound, how many pound do you want?')
     
-    kilosNeed= int(input(f'\nSay somthing! (from 1 and {pound_to_kilo}): '))
+    poundNeed= int(input(f'\nSay somthing! (from 1 and {randFish}): '))
+
 
     # When the input is invalid 
-    while kilosNeed > pound_to_kilo or kilosNeed < 1 :
-        
-        kilosNeed= int(input(f'\nBETWEEN 1 AND {pound_to_kilo} !: '))
-    
-    money= kilosNeed * 2
 
-    #if over $300: gift one rod      
-    if money >= 300:
+    while poundNeed > randFish or poundNeed < 1 :
         
-        print(f'\n(You): I need {kilosNeed}. here is your money ${money}. and this is your gift! a new fishing rod!!!')
+        poundNeed= int(input(f'\nBETWEEN 1 AND {randFish} !: '))
     
-        print('\n(Fisherman): Oh, Wow. Thanks!')
+    money = poundNeed * 5
+    is_doubled = False;
+
+    
+    #if over $1000: money 2x      
+
+    if money >= 1000:
+
+        money = money * 2
+        is_doubled = True
+
+        print(f'\n(You): I need {poundNeed}.')
+    
+        print(f'\n(Fisherman): its {pound_to_kilo} kilos and ${money} (doubled!).')
+
+        print(f'\n(You): here is your money ${money}.')
+
+        print('\n(Fisherman): Oh, Wow. Thanks!\n')
 
     else:
         
-        print(f'\n(You): I need {kilosNeed}. here is your money ${money}.')
+        print(f'\n(You): I need {poundNeed}.')
     
-        print('\n(Fisherman): Thanks, enjoy it!')
+        print(f'\n(Fisherman): its {pound_to_kilo} kilos and ${money}.')
+
+        print(f'\n(You): here is your money ${money}.')
+
+        print('\n(Fisherman): Thanks, enjoy it!\n')
+
 
 elif buy =='no' :
     
@@ -52,3 +76,23 @@ elif buy =='no' :
     print('\n(Fisherman): Ok.')
 
 
+
+
+# Save results to file
+file = open('Fisherman.py/results.txt', 'a')
+
+file.write(f'''
+
+=== Results at {datetime.datetime.now()} ===
+
+fisherman total pound = {randFish}
+
+user pound need: {poundNeed}
+
+total pay : ${money}
+
+is_doubled : {is_doubled}
+
+---------------------------------------
+
+           ''')
